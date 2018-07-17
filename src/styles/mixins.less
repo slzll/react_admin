@@ -1,0 +1,84 @@
+// 边框圆角
+.border-radius (@radius: @border-radius-base) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -o-border-radius: @radius;
+}
+
+.wh (@width,@height) {
+  width: @width;
+  height: @height;
+}
+
+.ht-lineHt (@height) {
+  height: @height;
+  line-height: @height;
+}
+
+.square(@size) {
+  .wh(@size; @size);
+}
+.opacity(@opacity:1) {
+  @opacityPercentage: @opacity * 100;
+  filter: ~"alpha(opacity = @{opacityPercentage})";;
+  -moz-opacity: @opacity;
+  -khtml-opacity: @opacity;
+  opacity: @opacity;
+}
+
+// 左浮动
+.pull-left() {
+  float: left !important;
+}
+
+// 右浮动
+.pull-right() {
+  float: right !important;
+}
+
+// 清除浮动
+.clearFix() {
+  zoom: 1;
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    height: 0;
+  }
+}
+
+.placeholder(@color: @input-placeholder-color) {
+  // Firefox
+  &::-moz-placeholder {
+    color: @color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  // Internet Explorer 10+
+  &:-ms-input-placeholder {
+    color: @color;
+  }
+  // Safari and Chrome
+  &::-webkit-input-placeholder {
+    color: @color;
+  }
+}
+
+/*超出显示...*/
+.ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/*两端对齐*/
+.justify() {
+  text-align: justify;
+  -ms-text-justify: inter-ideograph;
+  text-justify: inter-ideograph;
+}

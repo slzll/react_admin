@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class TablePage extends Component {
     render () {
         return (
-            <div>
+            <div className="table_page">
                 TablePage
             </div>
         );

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch} from 'react-router-dom'
 import LoadableComponent from './LoadableComponent'
 
-const Home = LoadableComponent(() => import ("pages/Home/Home"));
+const TabPanes = LoadableComponent(() => import ("components/TabPanes/TabPanes.js"));
 
 class MyRoute extends PureComponent {
 	render () {
@@ -11,7 +11,7 @@ class MyRoute extends PureComponent {
 		const menuRoutes = menus && menus.reduce((result, sub) => {
 			sub.menus.forEach(item => {
 				result.push(
-					<Route key={item.Code} path={item.url ? item.url : '/' + item.Code} component={Home}/>
+					<Route key={item.Code} path={item.url ? item.url : '/' + item.Code} component={TabPanes}/>
 				)
 			});
 			return result
@@ -19,7 +19,7 @@ class MyRoute extends PureComponent {
 		return (
 			<div>
 				<Switch>
-					<Route exact={true} path="/" component={Home}/>
+					<Route exact={true} path="/" component={TabPanes}/>
 					{menuRoutes}
 				</Switch>
 			</div>

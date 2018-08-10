@@ -1,46 +1,41 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom'
-import {Tabs} from 'antd'
-import {changeTab,removeTab} from "actions/tabs";
-
-const {TabPane} = Tabs;
+import {Tabs, Spin} from 'antd'
+import {changeTab,removeTab, getOperateList} from "actions/tabs";
+import OperateList from 'components/OperateList/OperateList'
+import styles from './Home.less'
 
 class Home extends Component {
-	handleChange (activeKey) {
-		this.props.changeTab(activeKey)
+	constructor (props){
+		super(props);
+		this.state = {};
+		const Code = props.pointCode;
+		if (!props.tabs.operateLists[Code]) {
+			props.getOperateList(Code)
+		}
 	}
 
-	onEdit(targetKey, action){
-		this[action](targetKey);
+	static getDerivedStateFromProps(nextProps, prevState){
+		return prevState;
 	}
 
-	remove(targetKey){
-		this.props.removeTab(targetKey)
+	componentDidMount(){
+
 	}
 
 	render () {
-		const {shownTabs, activeTab} = this.props.tabs;
-		const tabPanes = Object.keys(shownTabs).map((key, index) => {
-			let item = shownTabs[ key ];
-			let title = <Link to={item.url ? item.url : '/' + item.Code}>{item.menuname}</Link>
-			return (
-				<TabPane tab={title} key={item.Code} closable={item.Code != 'Home'}>
-					{item.menuname}
-				</TabPane>
-			)
-		});
+		const { pointCode, tabs } = this.props;
+		const operateList = tabs.operateLists[pointCode]||{data: null, isLoading:false};
+		const { data, isLoading} = operateList;
 		return (
-			<div>
-				<Tabs hideAdd
-					  defaultActiveKey={activeTab}
-				      activeKey={activeTab}
-				      onChange={(key) => this.handleChange(key)}
-				      type="editable-card"
-				      onEdit={(targetKey, action)=>this.onEdit(targetKey, action)}>
-					{tabPanes}
-				</Tabs>
-			</div>
+			<Spin spinning={isLoading}>
+				<div className={styles['home-page']}>
+					<OperateList operateList={data} />
+					{this.props.pointCode}
+					{JSON.stringify(operateList)}
+				</div>
+			</Spin>
 		);
 	}
 }
@@ -58,8 +53,11 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		removeTab (Code) {
 			dispatch(removeTab(Code))
+		},
+		getOperateList(Code){
+			dispatch(getOperateList(Code))
 		}
 	}
-}
-Home = connect(mapStateToProps, mapDispatchToProps)(Home)
+};
+Home = connect(mapStateToProps, mapDispatchToProps)(Home);
 export default Home

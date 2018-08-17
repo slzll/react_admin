@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Button, Icon } from 'antd'
-import {getUserInfo} from "actions/userInfo";
+import { getUserInfo } from "actions/userInfo";
 
 import styles from './HomeHeader.less'
 
 class HomeHeader extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.props.getUserInfo()
     }
-    render () {
+    render() {
         let welcomeTime;
         const { userInfo } = this.props.userInfo;
         const hour = new Date().getHours();
@@ -30,7 +30,7 @@ class HomeHeader extends Component {
         return (
             <div className={styles.header}>
                 {
-                    userInfo.Model?<h4>{welcomeTime}{userInfo.Model.Name}，欢迎来到后台管理系统</h4>:''
+                    userInfo.Model ? <h4>{welcomeTime}{userInfo.Model.Name}，欢迎来到后台管理系统</h4> : ''
                 }
             </div>
         );
@@ -45,7 +45,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserInfo(){
+        getUserInfo() {
             dispatch(getUserInfo())
         }
     }

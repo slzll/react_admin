@@ -1,20 +1,20 @@
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
-import {hot} from 'react-hot-loader'
-import {Layout} from 'antd';
-import {collapseMenu, expandMenu} from "actions/menu";
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { hot } from 'react-hot-loader'
+import { Layout, Affix } from 'antd';
+import { collapseMenu, expandMenu } from "actions/menu";
 import MyRoute from 'router'
 import HomeHeader from 'components/HomeHeader/HomeHeader'
 import SiderMenu from 'components/SiderMenu/SiderMenu'
 
-const {Header, Sider, Content, Footer} = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 
 class App extends PureComponent {
-	constructor (props) {
+	constructor(props) {
 		super(props)
 	}
 
-	toggleExpanded () {
+	toggleExpanded() {
 		if (this.props.menu.isExpand) {
 			this.props.collapseMenu()
 		} else {
@@ -23,11 +23,11 @@ class App extends PureComponent {
 	}
 
 
-	render () {
+	render() {
 		const headerStyle = {
 			padding: '0 0'
 		};
-		const {isExpand} = this.props.menu;
+		const { isExpand } = this.props.menu;
 
 		return (
 			<div>
@@ -37,14 +37,16 @@ class App extends PureComponent {
 						collapsed={!isExpand}
 						onCollapse={() => this.toggleExpanded()}
 					>
-						<SiderMenu/>
+						<SiderMenu />
 					</Sider>
 					<Layout>
-						<Header className="page-header" style={headerStyle}>
-							<HomeHeader/>
-						</Header>
+						<Affix offsetTop={0}>
+							<Header className="page-header" style={headerStyle}>
+								<HomeHeader />
+							</Header>
+						</Affix>
 						<Content>
-							<MyRoute/>
+							<MyRoute />
 						</Content>
 						<Footer>
 							Footer
@@ -64,10 +66,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		expandMenu () {
+		expandMenu() {
 			dispatch(expandMenu())
 		},
-		collapseMenu () {
+		collapseMenu() {
 			dispatch(collapseMenu())
 		}
 	}

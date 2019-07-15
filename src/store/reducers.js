@@ -1,12 +1,14 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 import counter from 'reducers/counter';
-import userInfo from 'reducers/userInfo';
+import user from 'reducers/user';
 import tabs from 'reducers/tabs';
 import menu from 'reducers/menu';
+import table from 'reducers/table'
 
 export default combineReducers({
 	counter,
-	userInfo,
+	user,
 	menu,
-	tabs
+	tabs,
+	table
 });

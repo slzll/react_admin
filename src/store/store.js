@@ -1,8 +1,8 @@
-import {createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import combineReducers from 'reducers'
-import promiseMiddleware from './middleware/promiseMiddleware'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-let store = createStore(combineReducers, applyMiddleware(promiseMiddleware))
+let store = createStore(combineReducers, composeWithDevTools(applyMiddleware(thunk)))
 
 export default store

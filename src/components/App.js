@@ -4,8 +4,8 @@ import { hot } from 'react-hot-loader'
 import { Layout, Affix } from 'antd';
 import { collapseMenu, expandMenu } from "actions/menu";
 import MyRoute from 'router'
-import HomeHeader from 'components/HomeHeader/HomeHeader'
-import SiderMenu from 'components/SiderMenu/SiderMenu'
+import HomeHeader from 'components/HomeHeader'
+import SiderMenu from 'components/SiderMenu'
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -33,6 +33,7 @@ class App extends PureComponent {
 			<div>
 				<Layout>
 					<Sider
+						className="page_sider"
 						collapsible
 						collapsed={!isExpand}
 						onCollapse={() => this.toggleExpanded()}
